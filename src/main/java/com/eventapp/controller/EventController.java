@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class EventController {
@@ -24,5 +26,10 @@ public class EventController {
     @GetMapping("/events/{eventsId}")
     public ResponseEntity<GetEventResponse> getEvent(@PathVariable Long eventsId) {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.findOne(eventsId));
+    }
+
+    @GetMapping("events")
+    public ResponseEntity<List<GetEventResponse>> getEvents() {
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.findAll());
     }
 }

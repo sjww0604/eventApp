@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -50,5 +52,24 @@ public class EventService {
                 event.getCreatedAt(),
                 event.getModifiedAt()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetEventResponse> findAll() {
+        List<Event> events = eventRepository.findAll();
+
+        List<GetEventResponse> dtos = new ArrayList<>();
+        for (Event event : events) {
+            GetEventResponse dto = new GetEventResponse(
+                    event.getId(),
+                    event.getEventName(),
+                    event.getDescription(),
+                    event.getWriterName(),
+                    event.getCreatedAt(),
+                    event.getModifiedAt()
+            );
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
