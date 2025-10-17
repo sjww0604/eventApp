@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "events")
 @NoArgsConstructor (access = AccessLevel.PROTECTED)
-public class Event {
+public class Event extends BaseEntity {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -18,22 +18,20 @@ public class Event {
     @Column(nullable = false)
     String eventName;
     String description;
-    @Column(nullable = false)
-    String writer;
-    @Column(nullable = false)
+    String writerName;
     String password;
 
-    public Event(String eventName, String description, String writer, String password) {
+    public Event(String eventName, String description, String writerName, String password) {
         this.eventName = eventName;
         this.description = description;
-        this.writer = writer;
+        this.writerName = writerName;
         this.password = password;
     }
 
-    public void update(String eventName, String description, String writer, String password) {
+    public void updateEvent(String eventName, String description, String writerName, String password) {
         this.eventName = eventName;
         this.description = description;
-        this.writer = writer;
+        this.writerName = writerName;
         this.password = password;
     }
 }

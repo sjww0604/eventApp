@@ -1,4 +1,4 @@
-package com.jpa.entity;
+package com.eventapp.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
