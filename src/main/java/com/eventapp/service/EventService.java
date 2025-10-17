@@ -2,6 +2,7 @@ package com.eventapp.service;
 
 import com.eventapp.dto.CreateEventRequest;
 import com.eventapp.dto.CreateEventResponse;
+import com.eventapp.dto.GetEventResponse;
 import com.eventapp.entity.Event;
 import com.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,21 @@ public class EventService {
                 savedEvent.getWriterName(),
                 savedEvent.getCreatedAt(),
                 savedEvent.getModifiedAt()
+        );
+    }
+
+    @Transactional (readOnly = true)
+    public GetEventResponse findOne(Long eventId) {
+        Event event = eventRepository.findById(eventId).orElseThrow(
+                () -> new IllegalStateException("없는 작성자입니다.")
+        );
+        return new GetEventResponse(
+                event.getId(),
+                event.getEventName(),
+                event.getDescription(),
+                event.getWriterName(),
+                event.getCreatedAt(),
+                event.getModifiedAt()
         );
     }
 }
