@@ -84,4 +84,13 @@ public class EventService {
                 event.getWriterName()
         );
     }
+
+    @Transactional
+    public void delete(Long eventsId, String password) {
+        boolean existence = eventRepository.existsById(eventsId);
+        if (!existence) {
+            throw new IllegalStateException("없는 일정입니다.");
+        }
+        eventRepository.deleteById(eventsId);
+    }
 }

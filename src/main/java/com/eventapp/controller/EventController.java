@@ -43,4 +43,13 @@ public class EventController {
                 eventService.updateEvent(eventsId, request)
         );
     }
+
+    @DeleteMapping("/events/{eventsId}")
+    public ResponseEntity<Void> deleteEvent(
+            @PathVariable Long eventsId,
+            @RequestBody DeleteEventRequest request
+    ) {
+        eventService.delete(eventsId, request.getPassword());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
 }
