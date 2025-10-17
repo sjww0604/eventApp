@@ -3,6 +3,8 @@ package com.eventapp.controller;
 import com.eventapp.dto.CreateEventRequest;
 import com.eventapp.dto.CreateEventResponse;
 import com.eventapp.dto.GetEventResponse;
+import com.eventapp.entity.Event;
+import com.eventapp.repository.EventRepository;
 import com.eventapp.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+    private final EventRepository eventRepository;
 
     @PostMapping("/events")
     public ResponseEntity<CreateEventResponse> createEvent(@RequestBody CreateEventRequest request) {
@@ -28,8 +31,8 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.findOne(eventsId));
     }
 
-    @GetMapping("events")
-    public ResponseEntity<List<GetEventResponse>> getEvents() {
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.findAll());
+    @GetMapping("events") // @RequestParam을 사용함으로써 ?key=value 형태의 값을 받을 수 있게 해줌 (아래의 경우 작성자)
+    public ResponseEntity<List<GetEventResponse>> getEvents(@RequestParam String writerName) {
+        return ResponseEntity.status(HttpStatus.OK).body(eventService.findAll(writerName));
     }
 }

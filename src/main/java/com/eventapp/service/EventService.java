@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +54,8 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public List<GetEventResponse> findAll() {
-        List<Event> events = eventRepository.findAll();
+    public List<GetEventResponse> findAll(String writerName) {
+        List<Event> events = eventRepository.findByWriterNameOrderByModifiedAtDesc(writerName);
 
         List<GetEventResponse> dtos = new ArrayList<>();
         for (Event event : events) {
