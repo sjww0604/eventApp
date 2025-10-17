@@ -1,8 +1,6 @@
 package com.eventapp.service;
 
-import com.eventapp.dto.CreateEventRequest;
-import com.eventapp.dto.CreateEventResponse;
-import com.eventapp.dto.GetEventResponse;
+import com.eventapp.dto.*;
 import com.eventapp.entity.Event;
 import com.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -70,5 +68,20 @@ public class EventService {
             dtos.add(dto);
         }
         return dtos;
+    }
+
+    @Transactional
+    public UpdateEventResponse updateEvent(Long eventsId, UpdateEventRequest request) {
+        Event event = eventRepository.findById(eventsId).orElseThrow(
+                () -> new IllegalStateException("없는 일정입니다.")
+        );
+
+        event.updateEvent(request.getEventName(),request.getWriterName());
+
+        return new UpdateEventResponse(
+                event.getId(),
+                event.getEventName(),
+                event.getWriterName()
+        );
     }
 }

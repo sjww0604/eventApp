@@ -28,10 +28,8 @@ public class Event extends BaseEntity {
         this.password = password;
     }
 
-    public void updateEvent(String eventName, String description, String writerName, String password) {
+    public void updateEvent(String eventName, String writerName) {
         this.eventName = eventName;
-        this.description = description;
         this.writerName = writerName;
-        this.password = password;
     }
 }

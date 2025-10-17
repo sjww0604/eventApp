@@ -1,8 +1,6 @@
 package com.eventapp.controller;
 
-import com.eventapp.dto.CreateEventRequest;
-import com.eventapp.dto.CreateEventResponse;
-import com.eventapp.dto.GetEventResponse;
+import com.eventapp.dto.*;
 import com.eventapp.entity.Event;
 import com.eventapp.repository.EventRepository;
 import com.eventapp.service.EventService;
@@ -34,5 +32,15 @@ public class EventController {
     @GetMapping("events") // @RequestParam을 사용함으로써 ?key=value 형태의 값을 받을 수 있게 해줌 (아래의 경우 작성자)
     public ResponseEntity<List<GetEventResponse>> getEvents(@RequestParam String writerName) {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.findAll(writerName));
+    }
+
+    @PutMapping("/events/{eventsId}")
+    public ResponseEntity<UpdateEventResponse> update(
+            @PathVariable Long eventsId,
+            @RequestBody UpdateEventRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                eventService.updateEvent(eventsId, request)
+        );
     }
 }
