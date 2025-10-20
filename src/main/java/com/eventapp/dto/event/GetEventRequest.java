@@ -1,4 +1,4 @@
-package com.eventapp.dto;
+package com.eventapp.dto.event;
 
 import lombok.Getter;
 

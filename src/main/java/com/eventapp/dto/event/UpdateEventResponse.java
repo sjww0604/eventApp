@@ -1,8 +1,6 @@
-package com.eventapp.dto;
+package com.eventapp.dto.event;
 
 import lombok.Getter;
-
-import java.time.LocalDateTime;
 
 @Getter
 public class UpdateEventResponse {

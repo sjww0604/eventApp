@@ -1,6 +1,6 @@
 package com.eventapp.service;
 
-import com.eventapp.dto.*;
+import com.eventapp.dto.event.*;
 import com.eventapp.entity.Event;
 import com.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;

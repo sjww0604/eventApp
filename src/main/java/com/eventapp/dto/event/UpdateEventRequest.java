@@ -1,12 +1,10 @@
-package com.eventapp.dto;
+package com.eventapp.dto.event;
 
 import lombok.Getter;
 
 @Getter
-public class CreateEventRequest {
-
+public class UpdateEventRequest {
     private String eventName;
-    private String description;
     private String writerName;
     private String password;
 }
