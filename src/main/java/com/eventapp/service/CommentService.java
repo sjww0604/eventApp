@@ -6,8 +6,11 @@ import com.eventapp.entity.Event;
 import com.eventapp.repository.CommentRepository;
 import com.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 

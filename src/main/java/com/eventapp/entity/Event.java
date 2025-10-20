@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @Entity
 @Table(name = "events")
@@ -20,6 +22,10 @@ public class Event extends BaseEntity {
     String description;
     String writerName;
     String password;
+
+    // 양방향 연관관계 설정
+    @OneToMany (mappedBy = "event")
+    private List<Comment> commentList;
 
     public Event(String eventName, String description, String writerName, String password) {
         this.eventName = eventName;

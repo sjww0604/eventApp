@@ -14,4 +14,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     * ModifiedAt : 정렬 대상 컬럼
     * Desc : 내림차순 정렬*/
     List<Event> findByWriterNameOrderByModifiedAtDesc(String writerName);
+
+    // 조건부 검색이 아닌 전체 조회 기능 추가
+    List<Event> findAllByOrderByModifiedAtDesc();
 }

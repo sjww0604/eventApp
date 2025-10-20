@@ -15,7 +15,6 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
-    private final EventRepository eventRepository;
 
     @PostMapping("/events")
     public ResponseEntity<CreateEventResponse> createEvent(@RequestBody CreateEventRequest request) {
@@ -24,13 +23,15 @@ public class EventController {
     }
 
     @GetMapping("/events/{eventsId}")
-    public ResponseEntity<GetEventResponse> getEvent(@PathVariable Long eventsId) {
+    public ResponseEntity<GetEventDetailResponse> getEvent(@PathVariable Long eventsId) {
         return ResponseEntity.status(HttpStatus.OK).body(eventService.findOne(eventsId));
     }
 
-    @GetMapping("events") // @RequestParam을 사용함으로써 ?key=value 형태의 값을 받을 수 있게 해줌 (아래의 경우 작성자)
-    public ResponseEntity<List<GetEventResponse>> getEvents(@RequestParam String writerName) {
-        return ResponseEntity.status(HttpStatus.OK).body(eventService.findAll(writerName));
+    @GetMapping("/events") // @RequestParam을 사용함으로써 ?key=value 형태의 값을 받을 수 있게 해줌 (아래의 경우 작성자)
+    public ResponseEntity<List<GetEventResponse>> getEvents(
+            @RequestParam(required = false) String writerName
+    ) {
+        return ResponseEntity.ok(eventService.findAll(writerName));
     }
 
     @PutMapping("/events/{eventsId}")

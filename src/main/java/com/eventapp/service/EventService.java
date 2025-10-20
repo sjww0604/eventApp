@@ -1,5 +1,6 @@
 package com.eventapp.service;
 
+import com.eventapp.dto.comment.CreateCommentResponse;
 import com.eventapp.dto.event.*;
 import com.eventapp.entity.Event;
 import com.eventapp.repository.EventRepository;
@@ -37,35 +38,55 @@ public class EventService {
     }
 
     @Transactional (readOnly = true)
-    public GetEventResponse findOne(Long eventId) {
+    public GetEventDetailResponse findOne(Long eventId) {
         Event event = eventRepository.findById(eventId).orElseThrow(
-                () -> new IllegalStateException("없는 작성자입니다.")
+                () -> new IllegalStateException("없는 일정입니다.")
         );
-        return new GetEventResponse(
+
+        List<CreateCommentResponse> commentDtos = event.getCommentList().stream()
+                .map(c -> new CreateCommentResponse(
+                        c.getId(),
+                        c.getContent(),
+                        c.getWriter(),
+                        c.getCreatedAt(),
+                        c.getModifiedAt()
+                ))
+                .toList();
+
+        return new GetEventDetailResponse(
                 event.getId(),
                 event.getEventName(),
                 event.getDescription(),
                 event.getWriterName(),
                 event.getCreatedAt(),
-                event.getModifiedAt()
+                event.getModifiedAt(),
+                commentDtos
         );
     }
 
     @Transactional(readOnly = true)
     public List<GetEventResponse> findAll(String writerName) {
-        List<Event> events = eventRepository.findByWriterNameOrderByModifiedAtDesc(writerName);
+        List<Event> events;
+
+        if (writerName == null || writerName.isBlank()) {
+            // 전체 조회
+            events = eventRepository.findAllByOrderByModifiedAtDesc();
+        } else {
+            // 작성자별 조회
+            events = eventRepository.findByWriterNameOrderByModifiedAtDesc(writerName);
+        }
 
         List<GetEventResponse> dtos = new ArrayList<>();
         for (Event event : events) {
-            GetEventResponse dto = new GetEventResponse(
+
+            dtos.add(new GetEventResponse(
                     event.getId(),
                     event.getEventName(),
                     event.getDescription(),
                     event.getWriterName(),
                     event.getCreatedAt(),
                     event.getModifiedAt()
-            );
-            dtos.add(dto);
+            ));
         }
         return dtos;
     }
