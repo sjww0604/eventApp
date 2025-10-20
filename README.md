@@ -91,58 +91,8 @@
 
 ---
 
-## 📘 API 명세서
-### 1️⃣ 일정 생성 (POST /api/events)
-> 새 일정을 등록합니다.
-
-**요청 예시**
-```json
-{
-  "eventName": "팀 회의",
-  "description": "이번 주 업무 공유",
-  "writerName": "서재원",
-  "password": "1234"
-}
-```
-
-**응답 예시 (201 Created)**
-```json
-{
-  "id": 1,
-  "eventName": "팀 회의",
-  "description": "이번 주 업무 공유",
-  "writerName": "서재원",
-  "createdAt": "2025-10-17T10:00:00"
-}
-```
-
----
-
-### 2️⃣ 일정 수정 (PUT /api/events/{id})
-> 등록된 일정을 수정합니다.  
-> `id`는 수정할 일정의 고유 식별자입니다.
-
-**요청 예시**
-```json
-{
-  "eventName": "팀 회의 (수정)",
-  "description": "회의 일정 변경",
-  "writerName": "서재원",
-  "password": "1234"
-}
-```
-
-**응답 예시 (200 OK)**
-```json
-{
-  "id": 1,
-  "eventName": "팀 회의 (수정)",
-  "description": "회의 일정 변경",
-  "writerName": "서재원",
-  "createdAt": "2025-10-17T10:00:00",
-  "modifiedAt": "2025-10-17T11:00:00"
-}
-```
+## 📖 API 문서
+[![Postman Docs](https://img.shields.io/badge/Docs-Postman-FF6C37?logo=postman&logoColor=white)](https://sjww0604-6886319.postman.co/workspace/40a75c44-f370-4e91-821b-bf17b2e328a2/documentation/48138022-31bdf0a9-e844-4722-a7ab-57ebef96a412)
 
 **응답 코드**
 
